@@ -23,7 +23,7 @@ spring:
         - id: user-service
           uri: http://localhost:8081/
           predicates:
-            - Path=/user-service/login
+            - Path=/login
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -31,7 +31,7 @@ spring:
         - id: user-service
           uri: http://localhost:8081/
           predicates:
-            - Path=/user-service/users
+            - Path=/users
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -39,7 +39,7 @@ spring:
         - id: user-service
           uri: http://localhost:8081/
           predicates:
-            - Path=/user-service/**
+            - Path=/**
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie
