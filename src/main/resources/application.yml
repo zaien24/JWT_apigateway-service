@@ -23,25 +23,24 @@ spring:
         - id: user-service
           uri: http://localhost:8081/
           predicates:
-            - Path=/user-service/**
-        - id: first-service
+            - Path=/user-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
           uri: http://localhost:8081/
           predicates:
-            - Path=/first-service/**
+            - Path=/user-service/users
+            - Method=POST
           filters:
-#            - AddRequestHeader=first-request, first-requests-header2
-#            - AddResponseHeader=first-response, first-response-header2
-            - CustomFilter
-        - id: second-service
-          uri: http://localhost:8082/
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: http://localhost:8081/
           predicates:
-            - Path=/second-service/**`
+            - Path=/user-service/**
+            - Method=GET
           filters:
-#            - AddRequestHeader=second-request, second-requests-header2
-#            - AddResponseHeader=second-response, second-response-header2
-            - name: CustomFilter
-            - name: LoggingFilter
-              args:
-                baseMessage: HI, there.
-                preLogger: true
-                postLogger: true
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
