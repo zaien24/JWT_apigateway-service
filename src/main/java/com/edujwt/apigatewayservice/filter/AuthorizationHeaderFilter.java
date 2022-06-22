@@ -20,6 +20,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     Environment env;
 
     public AuthorizationHeaderFilter(Environment env) {
+
+        super(Config.class);
         this.env = env;
     }
     public static class Config {
@@ -70,7 +72,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
 
-        log.error(err);
+        //log.error(err);
         return response.setComplete();
 
     }
