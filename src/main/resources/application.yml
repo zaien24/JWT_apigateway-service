@@ -23,7 +23,7 @@ spring:
         - id: user-service
           uri: http://localhost:8081/
           predicates:
-            - Path=/login
+            - Path=/user-service/login
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -31,7 +31,7 @@ spring:
         - id: user-service
           uri: http://localhost:8081/
           predicates:
-            - Path=/users
+            - Path=/user-service/users
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -44,3 +44,6 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+token:
+  secret: user_token
